@@ -10,6 +10,6 @@
 
 int main(void) {
 	setbuf(stdout, NULL);
-	//prueba
+
 
 }
