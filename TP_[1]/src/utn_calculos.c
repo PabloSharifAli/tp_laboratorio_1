@@ -7,13 +7,14 @@
 
 #include "utn_calculos.h"
 
+//utn_suma(manzanas,peras,&maanzanasyperas);
 
-float utn_suma(float numeroUno, float numeroDos){
-	float resultado;
+int utn_suma(float numeroUno, float numeroDos, float *resultado){
+	int retorno=0;
 
-	resultado = numeroUno + numeroDos;
+	*resultado = numeroUno + numeroDos;
 
-	return resultado;
+	return retorno;
 }
 
 float utn_resta(float numeroUno, float numeroDos){

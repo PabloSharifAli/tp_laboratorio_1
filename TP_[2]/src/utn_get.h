@@ -9,6 +9,8 @@
 #define UTN_GET_H_
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /// @brief Esta funcion pide numeros enteros
 ///
@@ -30,6 +32,6 @@ int utn_getInt(int * pNnumeroEntero, char * mensaje, char * mensajeError, int ma
 /// @param minimo Establece un numero minimo
 /// @param maximoDeReintentos Establece el maximo de reintentos
 /// @return Retorno
-float utn_getFloat(float * pNnumeroFlotante, char * mensaje, char * mensajeError, float maximo, float minimo, int maximoDeReintentos);
+int utn_getFloat(float * pNnumeroFlotante, char * mensaje, char * mensajeError, float maximo, float minimo, int maximoDeReintentos);
 
 #endif /* UTN_GET_H_ */

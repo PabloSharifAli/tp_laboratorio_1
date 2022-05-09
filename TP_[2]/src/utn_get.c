@@ -6,8 +6,10 @@
  */
 #include "utn_get.h"
 
+
 static int esNumerica(char * cadena);
 static int getInt(int * pNnumeroEntero);
+static int getFloat(float * pNumeroFlotante);
 static int myGets(char * cadena, int longitud);
 
 
@@ -21,10 +23,8 @@ int utn_getInt(int * pNnumeroEntero, char * mensaje, char * mensajeError, int ma
 	{
 		do{
 			printf("%s", mensaje);
-			//scanf("%d", &auxNumeroEntero);
-			getInt()
+			getInt(&auxNumeroEntero);
 			maximoDeReintentos --;
-
 			if(auxNumeroEntero >= minimo && auxNumeroEntero <= maximo)
 			{
 				*pNnumeroEntero = auxNumeroEntero; // asignamos el valor guardado en la variable al contenido de la direccion de memoria
@@ -40,17 +40,17 @@ int utn_getInt(int * pNnumeroEntero, char * mensaje, char * mensajeError, int ma
 	return retorno; // retornamos el retorno
 }
 
-float utn_getFloat(float * pNnumeroFlotante, char * mensaje, char * mensajeError, float maximo, float minimo, int maximoDeReintentos){
+int utn_getFloat(float * pNnumeroFlotante, char * mensaje, char * mensajeError, float maximo, float minimo, int maximoDeReintentos){
 
 	float auxNumeroFlotante;
-	float retorno;
+	int retorno;
 	retorno = -1;
 
 	if(pNnumeroFlotante != NULL && maximo >= minimo && maximoDeReintentos >= 0)
 	{
 		do{
 			printf("%s", mensaje);
-			scanf("%f", &auxNumeroFlotante);
+			getFloat(&auxNumeroFlotante);
 			maximoDeReintentos --;
 
 			if(auxNumeroFlotante >= minimo && auxNumeroFlotante <= maximo)
@@ -71,8 +71,8 @@ float utn_getFloat(float * pNnumeroFlotante, char * mensaje, char * mensajeError
 static int myGets(char * cadena, int longitud){
 	int retorno = 0;
 	fflush(stdin);
-	fgets(cadena, longitud, stdin)
-	cadena[strlen(cadena) -1] = "\0";
+	fgets(cadena, longitud, stdin);
+	cadena[strlen(cadena) -1] = '\0';
 
 	return retorno;
 }
@@ -81,11 +81,23 @@ static int getInt(int * pNnumeroEntero){
 	int retorno = -1;
 	char auxCadena[4096];
 
-
-	if(myGets(auxCadena, sizeof(auxCadena)) && esNumerica(auxCadena))
+	if(myGets(auxCadena, sizeof(auxCadena)) == 0 && esNumerica(auxCadena))
 	{
-		retorno = 0
-		*pNnumeroEntero = atoi(pNnumeroEntero);
+		retorno = 0;
+		*pNnumeroEntero = atoi(auxCadena);
+	}
+
+	return retorno;
+}
+
+static int getFloat(float * pNumeroFlotante){
+	int retorno = -1;
+	char auxCadena[4096];
+
+	if(myGets(auxCadena, sizeof(auxCadena)) == 0  && esNumerica(auxCadena))
+	{
+		retorno = 0;
+		*pNumeroFlotante = atof(auxCadena);
 	}
 
 	return retorno;
@@ -95,14 +107,14 @@ static int esNumerica(char * cadena){
 	int retorno = 1;
 	int i = 0;
 
-	if(cadena[0] == "-")
+	if(cadena[0] == '-')
 	{
 		i = 1;
 	}
 
-	for( ; cadena[i] != "\0"; i++)
+	for( ; cadena[i] != '\0'; i++)
 	{
-		if(cadena[i] > "9" || cadena[i] < "0")
+		if(cadena[i] > '9' || cadena[i] < '0')
 		{
 			retorno = 0;
 			break;
